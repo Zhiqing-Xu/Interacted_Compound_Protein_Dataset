@@ -110,7 +110,7 @@ data_folder         = Path("Z00_BRENDA_Kinetics_Raw/" + data_folder_name)
 data_file           = data_file_name
 
 
-output_folder       = Path("Z01_DataPreprocessing_Savings/")
+output_folder       = Path("Z04_DataPreprocessing_Savings/")
 output_file         = output_file_name
 
 
