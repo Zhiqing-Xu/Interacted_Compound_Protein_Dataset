@@ -12,5 +12,15 @@ Z02_All_Ligands_Molfiles_150001_200000
 Z02_All_Ligands_Molfiles_200001_250000
 Z02_All_Ligands_Molfiles_250001_290000
 
-
+CMPD_RXN_tools/MNXScrapSavings/CPD01_nme_smiles_MNXid_dict.p 
+CMPD_RXN_tools/MNXScrapSavings/CPD01_smiles_MNXid_nme_dict.p 
+CMPD_RXN_tools/MNXScrapSavings/raw_data/chem_prop.tsv 
+Z00_BRENDA_Kinetics_Raw/uniprot_annotation_3_001_200.tsv 
+Z00_BRENDA_Kinetics_Raw/uniprot_annotation_3_201_300.tsv 
+Z00_BRENDA_Kinetics_Raw/uniprot_annotation_3_301_400.tsv 
+Z00_BRENDA_Kinetics_Raw/uniprot_annotation_3_401_600.tsv 
+Z00_BRENDA_Kinetics_Raw/uniprot_annotation_3_601_800.tsv 
+Z00_BRENDA_Kinetics_Raw/uniprot_annotation_3_801_inf.tsv 
+Z00_BRENDA_Kinetics_Raw/uniprot_annotation_4.tsv 
+Z00_BRENDA_Kinetics_Raw/uniprot_annotation_5.tsv 
 
