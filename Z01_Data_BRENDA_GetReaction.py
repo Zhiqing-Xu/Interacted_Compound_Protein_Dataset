@@ -133,15 +133,6 @@ def Step_0_get_raw_df_0(dataset_idx = 1): # Shall be 1, 2 and 3 only.
     data_folder         = Path("Z00_BRENDA_Kinetics_Raw/" + data_folder_name)
     data_file           = data_file_name
 
-    saving_file_suffix  = "_extended.csv"
-
-    output_folder       = Path("Z04_DataPreprocessing_Savings/")
-    output_file         = output_file_name
-
-    output_1_suffix     = '_core.csv' # 
-    output_2_suffix     = '_scrn.csv' # 
-    output_3_suffix     = '_fine.csv' # 
-
 
 
     ################################################################################################################### 
@@ -269,16 +260,16 @@ def Step_0_get_raw_df_0(dataset_idx = 1): # Shall be 1, 2 and 3 only.
 #                   .JMMmmmmMMM .MM:.  .:MMa.JMML. .AMA.   .AMMA.JML.    YM  .JMMmmmdP'                           #
 ###################################################################################################################
 
-def Z00_Get_Reaction_Main():
+def Z01_Get_Reaction_Main():
 
-    data_folder         = Path("Z00_BRENDA_Kinetics_Raw/")
-    data_file           = "Z00_Query_Result.p"
+    output_folder         = Path("Z01_BRENDA_QueryResults/")
+    output_file           = "Z01_Query_Result.p"
 
 
     # Expand the dataset through searching BRENDA for ``reaction partners``.
-    if os.path.exists(data_folder / data_file):
-        Z00_Query_Result_df = pd.read_pickle(data_folder / data_file)
-        bad_group           = pickle.load(open(data_folder / 'Z00_Unresponded_Query.p', 'rb'))
+    if os.path.exists(output_folder / output_file):
+        Z01_Query_Result_df = pd.read_pickle(output_folder / output_file)
+        bad_group           = pickle.load(open(output_folder / 'Z01_Unresponded_Query.p', 'rb'))
 
     else: # Takes ~4.5 hours
 
@@ -372,20 +363,20 @@ def Z00_Get_Reaction_Main():
         data = {'organism': new_OG_list, 'substrate': new_CP_list, 'EC': new_EC_list, 'reaction': rctn_list, "ligandID": lgid_list}
 
         # Create DataFrame
-        Z00_Query_Result_df = pd.DataFrame(data)
-        Z00_Query_Result_df.to_pickle(data_folder / data_file)
-        Z00_Query_Result_df['ligandID'] = Z00_Query_Result_df['ligandID'].apply(lambda x: x[0] if len(x) > 0 else None).astype('Int64')
+        Z01_Query_Result_df = pd.DataFrame(data)
+        Z01_Query_Result_df.to_pickle(output_folder / output_file)
+        Z01_Query_Result_df['ligandID'] = Z01_Query_Result_df['ligandID'].apply(lambda x: x[0] if len(x) > 0 else None).astype('Int64')
 
-        pickle.dump(bad_group, open(data_folder / "Z00_Unresponded_Query.p", "wb"))
+        pickle.dump(bad_group, open(output_folder / "Z01_Unresponded_Query.p", "wb"))
 
 
-    Z00_Query_Result_df.reset_index(inplace=True)
-    Z00_Query_Result_df.drop(columns = ["index", ], inplace = True)
-    print("\n\n"+"-"*90+"\n# Step 0.2 Check Output, Z00_Query_Result_df: ")
-    beautiful_print(Z00_Query_Result_df)
-    print("len(Z00_Query_Result_df): ", len(Z00_Query_Result_df))
+    Z01_Query_Result_df.reset_index(inplace=True)
+    Z01_Query_Result_df.drop(columns = ["index", ], inplace = True)
+    print("\n\n"+"-"*90+"\n# Step 0.2 Check Output, Z01_Query_Result_df: ")
+    beautiful_print(Z01_Query_Result_df)
+    print("len(Z01_Query_Result_df): ", len(Z01_Query_Result_df))
 
-    count = Z00_Query_Result_df['reaction'].apply(lambda x: x != []).sum()
+    count = Z01_Query_Result_df['reaction'].apply(lambda x: x != []).sum()
     print("Number of non-empty query result: ", count)
 
     print("Unresponded query list: ", bad_group)
@@ -397,7 +388,7 @@ def Z00_Get_Reaction_Main():
 
 
 if __name__ == "__main__":
-    Z00_Get_Reaction_Main()
+    Z01_Get_Reaction_Main()
 
 
 

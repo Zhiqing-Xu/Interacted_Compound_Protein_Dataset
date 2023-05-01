@@ -272,25 +272,25 @@ print("len(raw_df_0): ", len(raw_df_0))
 
 raw_df_0_extended = copy.deepcopy(raw_df_0)
 
-from Z00_Data_BRENDA_GetReaction import *
+from Z01_Data_BRENDA_GetReaction import *
 
 # Expand the dataset through searching BRENDA for ``reaction partners`` and ``ligand IDs``.
-if os.path.exists(data_folder / "../Z00_Query_Result.p"):
-    Z00_Query_Result_df = pd.read_pickle  (data_folder / "../Z00_Query_Result.p" )
-    Unresponded_Query   = pickle.load(open(data_folder / "../Z00_Unresponded_Query.p", 'rb'))
+if os.path.exists(data_folder / "../../Z01_BRENDA_QueryResults/Z01_Query_Result.p"):
+    Z01_Query_Result_df = pd.read_pickle  (data_folder / "../../Z01_BRENDA_QueryResults/Z01_Query_Result.p" )
+    Unresponded_Query   = pickle.load(open(data_folder / "../../Z01_BRENDA_QueryResults/Z01_Unresponded_Query.p", 'rb'))
 
 else:
-    print("Saving File NOT Found. You have to run Z00_Data_BRENDA_GetReaction.py")
-    Z00_Get_Reaction_Main()
+    print("Saving File NOT Found. You have to run Z01_Data_BRENDA_GetReaction.py")
+    Z01_Get_Reaction_Main()
 
 
-print("\n\n"+"-"*90+"\n# Step 0.2 Reaction Info, Z00_Query_Result_df: ")
-beautiful_print(Z00_Query_Result_df[["organism","substrate","EC","reaction"]])
-print("len(Z00_Query_Result_df): ", len(Z00_Query_Result_df))
-count = Z00_Query_Result_df['reaction'].apply(lambda x: x != []).sum()
+print("\n\n"+"-"*90+"\n# Step 0.2 Reaction Info, Z01_Query_Result_df: ")
+beautiful_print(Z01_Query_Result_df[["organism","substrate","EC","reaction"]])
+print("len(Z01_Query_Result_df): ", len(Z01_Query_Result_df))
+count = Z01_Query_Result_df['reaction'].apply(lambda x: x != []).sum()
 print("Number of non-empty query result: ", count)
 
-Z00_Query_Result_df = Z00_Query_Result_df.rename( columns = {"substrate": "cmpd",} )
+Z01_Query_Result_df = Z01_Query_Result_df.rename( columns = {"substrate": "cmpd",} )
 
 #====================================================================================================#
 # Use the only unresponded query as an example here, show how an example of querying BRENDA
@@ -315,10 +315,10 @@ print("Previously unresponded query retried: ", query_result) # Empty Result sho
 
 #====================================================================================================#
 # Get a dataframe that works as a organism + EC + Substrate -> reaction dictionary.
-OG_EC_CP__RXN_grouped_df = Z00_Query_Result_df.groupby(['organism', 'EC', 'cmpd'])['reaction'].apply(list)
+OG_EC_CP__RXN_grouped_df = Z01_Query_Result_df.groupby(['organism', 'EC', 'cmpd'])['reaction'].apply(list)
 OG_EC_CP__RXN_grouped_df = OG_EC_CP__RXN_grouped_df.to_frame().reset_index(inplace = False)
 
-OG_EC_CP__LGD_grouped_df = Z00_Query_Result_df.groupby(['organism', 'EC', 'cmpd'])['ligandID'].apply(list)
+OG_EC_CP__LGD_grouped_df = Z01_Query_Result_df.groupby(['organism', 'EC', 'cmpd'])['ligandID'].apply(list)
 OG_EC_CP__LGD_grouped_df = OG_EC_CP__LGD_grouped_df.to_frame().reset_index(inplace = False)
 
 # Merging the df with the sequence df to get a combined df.
@@ -863,12 +863,12 @@ uniq_cmpd_list = list(raw_df_0['cmpd'].unique())
 
 # Getting compound name to SMILES dictionary
 cmpd_smls_dict, missing_cmpd_list, missing_cmpd_list_len = \
-    look_up_cmpd_dict(additional_dict_list  =  ["cmpd_smls_cactus.csv"  ,
-                                                "cmpd_smls_pubchem.csv" , 
+    look_up_cmpd_dict(additional_dict_list  =  ["cmpd_smls_cactus.csv"   ,
+                                                "cmpd_smls_pubchem.csv"  , 
                                                 #"cmpd_smls_all.csv"     , 
-                                               ]                        ,
-                        search_cmpd_list    =  uniq_cmpd_list           ,
-                        data_folder         =  data_folder              ,
+                                               ]                         ,
+                        search_cmpd_list    =  uniq_cmpd_list            ,
+                        data_folder         =  data_folder               ,
                         )
 
 
