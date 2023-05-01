@@ -126,11 +126,11 @@ client = Client(wsdl)
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$# 
 
 # Input Arguments
-data_folder_name    = ["Ki_BRENDA"        , "KM_BRENDA"        , "kcat_BRENDA"        , "kcat_KM_BRENDA"        ][1]
-data_file_name      = ["brenda_Ki_raw.csv", "brenda_KM_raw.csv", "brenda_kcat_raw.csv", "brenda_kcat_KM_raw.csv"][1]
-output_file_name    = ["Ki_BRENDA.csv"    , "KM_BRENDA.csv"    , "kcat_BRENDA.csv"    , "kcat_KM_BRENDA.csv"    ][1]
-data_name           = ["Ki"               , "Km"               , "kcat"               , "kcat_KM"               ][1]
-data_name_0         = ["max_Ki"           , "max_Km"           , "max_kcat"           , "max_kcat_KM"           ][1]
+data_folder_name    = ["Ki_BRENDA"        , "KM_BRENDA"        , "kcat_BRENDA"        , "kcat_KM_BRENDA"        ][2]
+data_file_name      = ["brenda_Ki_raw.csv", "brenda_KM_raw.csv", "brenda_kcat_raw.csv", "brenda_kcat_KM_raw.csv"][2]
+output_file_name    = ["Ki_BRENDA.csv"    , "KM_BRENDA.csv"    , "kcat_BRENDA.csv"    , "kcat_KM_BRENDA.csv"    ][2]
+data_name           = ["Ki"               , "Km"               , "kcat"               , "kcat_KM"               ][2]
+data_name_0         = ["max_Ki"           , "max_Km"           , "max_kcat"           , "max_kcat_KM"           ][2]
 
 data_folder         = Path("Z00_BRENDA_Kinetics_Raw/" + data_folder_name)
 data_file           = data_file_name
@@ -163,7 +163,7 @@ if data_name in ["kcat_KM", ]:
 #         .JML. `'  .JMML..AMA.   .AMMA..JMML..JML.    YM       .JMML.     .JMML..JMMmmmmMMM .JMMmmmmMMM          #
 ###################################################################################################################
 
-print("\n\n" + "#"*100 + "\n" + "#"*100 +"\n>>> Part 0: Read the raw dataset and perform rough cleaning... ")
+print("\n\n\n\n" + "#"*100 + "\n" + "#"*100 +"\n>>> Part 0: Read the raw dataset and perform rough cleaning... ")
 
 # Read the main data file.
 raw_df_0 = pd.read_csv(filepath_or_buffer   =   data_folder / data_file, 
@@ -342,7 +342,7 @@ print("len(raw_df_0): ", len(raw_df_0))
 #   .JMML.db        `bmmmmd"'  .JML.    YM  .JMML..JMML.     .JMML. .JMM.  `"bmmd"'      .JMML.        .JMML..JMMmmmdP'   M9mmmP'                      #
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$# 
 
-print("\n\n" + "#"*100 + "\n" + "#"*100 +"\n>>> Part 1: Split the dataset (raw_df_0) into two df's, one with uniprot_id, one without... ")
+print("\n\n\n\n" + "#"*100 + "\n" + "#"*100 +"\n>>> Part 1: Split the dataset (raw_df_0) into two df's, one with uniprot_id, one without... ")
 print("    ( raw_df_0 -> data_wi_unip_df + data_wo_unip_df ) ")
 
 #====================================================================================================#
@@ -454,6 +454,8 @@ data_wi_unip_df.drop(columns = ["index", ], inplace = True)
 print("\n\n"+"-"*90+"\n# Step 1.1 Dataset with Uniprot IDs: data_wi_unip_df: ")
 beautiful_print(data_wi_unip_df)
 print("len(data_wi_unip_df): ", len(data_wi_unip_df))
+print("Number of unique uniprot ID: ", len(list(sorted(data_wi_unip_df['uniprot_id'].unique()))))
+
 
 
 data_wo_unip_df.reset_index(inplace=True)
@@ -487,7 +489,7 @@ print("len(data_wo_unip_df): ", len(data_wo_unip_df))
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$# 
 
 
-print("\n\n" + "#"*100 + "\n" + "#"*100 +"\n>>> Part 2: Get a small dict (uniprotID -> sequence) for this dataset... ")
+print("\n\n\n\n" + "#"*100 + "\n" + "#"*100 +"\n>>> Part 2: Get a small dict (uniprotID -> sequence) for this dataset... ")
 print("    ( mainly for data with UniProt ID (data_wi_unip_df) )")
 
 # (1) Uniprot Sequences and associated properties has been downloaded as tsv files (super large files).
@@ -690,7 +692,7 @@ print("\n\n"+"-"*90+"\nDone getting the uniprotID -> sequence dict,  final_unip_
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$# 
 
 
-print("\n\n" + "#"*100 + "\n" + "#"*100 +"\n>>> Part 2: Get a small dict (Compound Name -> SMILES) for this dataset... ")
+print("\n\n\n\n" + "#"*100 + "\n" + "#"*100 +"\n>>> Part 3.1: Get a small dict (Compound Name -> SMILES) for this dataset... ")
 print("    ( for BOTH data_wi_unip_df AND data_wo_unip_df )")
 
 # Processing Compounds ()
@@ -892,7 +894,7 @@ print("Number of compounds with no smiles found: ", missing_cmpd_list_len)
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$# 
 
 
-print("\n\n" + "#"*100 + "\n" + "#"*100 +"\n>>> Part 2: Get a small dict (Compound Name -> SMILES) for this dataset... ")
+print("\n\n\n\n" + "#"*100 + "\n" + "#"*100 +"\n>>> Part 3.2: Get a small dict (Compound Name -> SMILES) for this dataset... ")
 print("    ( for BOTH data_wi_unip_df AND data_wo_unip_df )")
 
 # Processing Compounds ()

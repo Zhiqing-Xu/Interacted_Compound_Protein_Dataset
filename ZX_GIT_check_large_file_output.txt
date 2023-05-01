@@ -10,3 +10,4 @@ C:\Users\cesiu\Desktop\github_all\Git_Interacted_Compound_Protein_Dataset\Z00_BR
 C:\Users\cesiu\Desktop\github_all\Git_Interacted_Compound_Protein_Dataset\Z00_BRENDA_Kinetics_Raw\uniprot_annotation_3_801_inf.tsv 
 C:\Users\cesiu\Desktop\github_all\Git_Interacted_Compound_Protein_Dataset\Z00_BRENDA_Kinetics_Raw\uniprot_annotation_4.tsv 
 C:\Users\cesiu\Desktop\github_all\Git_Interacted_Compound_Protein_Dataset\Z00_BRENDA_Kinetics_Raw\uniprot_annotation_5.tsv 
+C:\Users\cesiu\Desktop\github_all\Git_Interacted_Compound_Protein_Dataset\Z03_PDB_files\alphafold_zips\alphafold.zip 

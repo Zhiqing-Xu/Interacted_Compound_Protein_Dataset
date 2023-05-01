@@ -303,6 +303,7 @@ else:
     new_CP_list   = []
     new_EC_list   = []
 
+    bad_group = []
 
     for idx, (orgm, subs, ecnm) in enumerate(zip(orgm_list, subs_list, ecnm_list)):
         print(idx)
@@ -318,8 +319,12 @@ else:
                           "organism*"           + orgm          , 
                           "ligandStructureId*"                  ,
                           )
-
-            query_result = client.service.getSubstrate(*parameters)
+            try:
+                query_result = client.service.getSubstrate(*parameters)
+            except:
+                query_result = []
+                bad_group.append((orgm, subs, ecnm))
+                print("bad one found! ")
 
             '''
             Sample of resultString.
@@ -367,6 +372,7 @@ print("\n\n"+"-"*90+"\n# Step 0.2 Check Output, raw_df_0_extended: ")
 beautiful_print(raw_df_0_extended)
 print("len(raw_df_0_extended): ", len(raw_df_0_extended))
 
+pickle.dump(bad_group, open(data_folder / "bad_group.p", "wb"))
 
 
 
