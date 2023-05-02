@@ -455,6 +455,7 @@ print("len(data_wo_unip_df): ", len(data_wo_unip_df), ", combination of two. ")
 print("\n\n"+"-"*90+"\n# Step 1.0 data_wi_unip_df, data_wo_unip_df: ")
 print("len(data_wi_unip_df) before/after exploding with multiple Uniprot IDs: ", len(data_wi_unip_df), end = ", ")
 data_wi_unip_df['uniprot_id'] = data_wi_unip_df['uniprot_id'].str.split(',')
+data_wi_unip_df['uniprot_id_list'] = data_wi_unip_df['uniprot_id']
 data_wi_unip_df = data_wi_unip_df.explode('uniprot_id')
 print(len(data_wi_unip_df))
 
@@ -703,13 +704,13 @@ print("\n\n"+"-"*90+"\nDone getting the uniprotID -> sequence dict,  final_unip_
 
 
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$# 
-#   pd""b.                   .g8"""bgd   .g8""8q.   `7MMM.     ,MMF'`7MM"""Mq.   .g8""8q.   `7MMF'   `7MF'`7MN.   `7MF'`7MM"""Yb.                      #
-#  (O)  `8b       __,      .dP'     `M .dP'    `YM.   MMMb    dPMM    MM   `MM..dP'    `YM.   MM       M    MMN.    M    MM    `Yb.                    #
-#       ,89      `7MM      dM'       ` dM'      `MM   M YM   ,M MM    MM   ,M9 dM'      `MM   MM       M    M YMb   M    MM     `Mb                    #
-#     ""Yb.        MM      MM          MM        MM   M  Mb  M' MM    MMmmdM9  MM        MM   MM       M    M  `MN. M    MM      MM                    #
-#        88        MM      MM.         MM.      ,MP   M  YM.P'  MM    MM       MM.      ,MP   MM       M    M   `MM.M    MM     ,MP                    #
-#  (O)  .M'  ,,    MM      `Mb.     ,' `Mb.    ,dP'   M  `YM'   MM    MM       `Mb.    ,dP'   YM.     ,M    M     YMM    MM    ,dP'                    #
-#   bmmmd'   db  .JMML.      `"bmmmd'    `"bmmd"'   .JML. `'  .JMML..JMML.       `"bmmd"'      `bmmmmd"'  .JML.    YM  .JMMmmmdP'                      #
+#   pd""b.             .g8"""bgd   .g8""8q.   `7MMM.     ,MMF'`7MM"""Mq.   .g8""8q.   `7MMF'   `7MF'`7MN.   `7MF'`7MM"""Yb.                            #
+#  (O)  `8b          .dP'     `M .dP'    `YM.   MMMb    dPMM    MM   `MM..dP'    `YM.   MM       M    MMN.    M    MM    `Yb.                          #
+#       ,89          dM'       ` dM'      `MM   M YM   ,M MM    MM   ,M9 dM'      `MM   MM       M    M YMb   M    MM     `Mb                          #
+#     ""Yb.          MM          MM        MM   M  Mb  M' MM    MMmmdM9  MM        MM   MM       M    M  `MN. M    MM      MM                          #
+#        88          MM.         MM.      ,MP   M  YM.P'  MM    MM       MM.      ,MP   MM       M    M   `MM.M    MM     ,MP                          #
+#  (O)  .M'  ,,      `Mb.     ,' `Mb.    ,dP'   M  `YM'   MM    MM       `Mb.    ,dP'   YM.     ,M    M     YMM    MM    ,dP'                          #
+#   bmmmd'   db        `"bmmmd'    `"bmmd"'   .JML. `'  .JMML..JMML.       `"bmmd"'      `bmmmmd"'  .JML.    YM  .JMMmmmdP'                            #
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$# 
 
 
@@ -863,12 +864,12 @@ uniq_cmpd_list = list(raw_df_0['cmpd'].unique())
 
 # Getting compound name to SMILES dictionary
 cmpd_smls_dict, missing_cmpd_list, missing_cmpd_list_len = \
-    look_up_cmpd_dict(additional_dict_list  =  ["cmpd_smls_cactus.csv"   ,
-                                                "cmpd_smls_pubchem.csv"  , 
-                                                #"cmpd_smls_all.csv"     , 
-                                               ]                         ,
-                        search_cmpd_list    =  uniq_cmpd_list            ,
-                        data_folder         =  data_folder               ,
+    look_up_cmpd_dict(additional_dict_list  =  ["cmpd_smls_cactus.csv"                                                  ,
+                                                "cmpd_smls_pubchem.csv"                                                 , 
+                                                "../../Z03_BRENDA_Compound_Info/Z03_CompoundName_LigandID_SMILES.csv"   , 
+                                               ]                                                                        ,
+                        search_cmpd_list    =  uniq_cmpd_list                                                           ,
+                        data_folder         =  data_folder                                                              ,
                         )
 
 
@@ -904,60 +905,249 @@ print("Number of compounds with no smiles found: ", missing_cmpd_list_len)
 
 
 
-
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$# 
-#   pd""b.                     .g8"""bgd   .g8""8q.   `7MMM.     ,MMF'`7MM"""Mq.   .g8""8q.   `7MMF'   `7MF'`7MN.   `7MF'`7MM"""Yb.                    #
-#  (O)  `8b                  .dP'     `M .dP'    `YM.   MMMb    dPMM    MM   `MM..dP'    `YM.   MM       M    MMN.    M    MM    `Yb.                  #
-#       ,89       pd*"*b.    dM'       ` dM'      `MM   M YM   ,M MM    MM   ,M9 dM'      `MM   MM       M    M YMb   M    MM     `Mb                  #
-#     ""Yb.      (O)   j8    MM          MM        MM   M  Mb  M' MM    MMmmdM9  MM        MM   MM       M    M  `MN. M    MM      MM                  #
-#        88          ,;j9    MM.         MM.      ,MP   M  YM.P'  MM    MM       MM.      ,MP   MM       M    M   `MM.M    MM     ,MP                  #
-#  (O)  .M'  ,,   ,-='       `Mb.     ,' `Mb.    ,dP'   M  `YM'   MM    MM       `Mb.    ,dP'   YM.     ,M    M     YMM    MM    ,dP'                  #
-#   bmmmd'   db  Ammmmmmm      `"bmmmd'    `"bmmd"'   .JML. `'  .JMML..JMML.       `"bmmd"'      `bmmmmd"'  .JML.    YM  .JMMmmmdP'                    #
+#         ,AM              .g8""8q.   `7MMF'   `7MF'MMP""MM""YMM `7MM"""Mq. `7MMF'   `7MF'MMP""MM""YMM         ,M' dP         
+#        AVMM            .dP'    `YM.   MM       M  P'   MM   `7   MM   `MM.  MM       M  P'   MM   `7         dP .M'    __,  
+#      ,W' MM            dM'      `MM   MM       M       MM        MM   ,M9   MM       M       MM           mmmMmmMmm   `7MM  
+#    ,W'   MM            MM        MM   MM       M       MM        MMmmdM9    MM       M       MM             MP dP       MM  
+#    AmmmmmMMmm          MM.      ,MP   MM       M       MM        MM         MM       M       MM          mmdMmmMmmm     MM  
+#          MM     ,,     `Mb.    ,dP'   YM.     ,M       MM        MM         YM.     ,M       MM           ,M' dP        MM  
+#          MM     db       `"bmmd"'      `bmmmmd"'     .JMML.    .JMML.        `bmmmmd"'     .JMML.         dP ,M'      .JMML.
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$# 
 
-
-print("\n\n\n\n" + "#"*100 + "\n" + "#"*100 +"\n>>> Part 3.2: Get a small dict (Compound Name -> SMILES) for this dataset... ")
-print("    ( for BOTH data_wi_unip_df AND data_wo_unip_df )")
-
-# Processing Compounds ()
-# This is totally different from UniProt IDs -> sequences.
-# Since the compounds -> SMILES dictionaries are relatively small.
-# Import all dictionaries and get a comprehensive one.
-# Use the combined dictionary to look up SMILES.
+print("\n\n\n\n" + "#"*100 + "\n" + "#"*100 +"\n>>> Part 4: Process data_wi_unip_df and generate outputs... ")
 
 
 
 
+###################################################################################################################
+#         `7MM           mm                                    db                              db                 #
+#           MM           MM                                                                                       #
+#      ,M""bMM   ,6"Yb.mmMMmm  ,6"Yb.      `7M'    ,A    `MF'`7MM      `7MM  `7MM `7MMpMMMb. `7MM `7MMpdMAo.      #
+#    ,AP    MM  8)   MM  MM   8)   MM        VA   ,VAA   ,V    MM        MM    MM   MM    MM   MM   MM   `Wb      #
+#    8MI    MM   ,pm9MM  MM    ,pm9MM         VA ,V  VA ,V     MM        MM    MM   MM    MM   MM   MM    M8      #
+#    `Mb    MM  8M   MM  MM   8M   MM          VVV    VVV      MM        MM    MM   MM    MM   MM   MM   ,AP      #
+#     `Wbmd"MML.`Moo9^Yo.`Mbmo`Moo9^Yo.         W      W     .JMML.      `Mbod"YML.JMML  JMML.JMML. MMbmmd'       #
+#                                                                                                   MM            #
+#                                                                                                 .JMML.          #
+###################################################################################################################
+# Look up seqs, and add sequence column, (for those that are NOT identified, assign a np.nan.)
+data_wi_unip_unip_list = data_wi_unip_df['uniprot_id'].tolist()
+
+data_wi_unip_seqs_list = []
+for unip in data_wi_unip_unip_list:
+    if unip in final_unip_seqs_dict:
+        data_wi_unip_seqs_list.append(final_unip_seqs_dict[unip])
+    else:
+        data_wi_unip_seqs_list.append(np.nan)
+
+data_wi_unip_df["Sequence"] = data_wi_unip_seqs_list
+
+
+
+data_wi_unip_df.reset_index(inplace=True)
+data_wi_unip_df.drop(columns = ["index", ], inplace = True)
+print("\n\n"+"-"*90+"\n# Step 4.0 Dataframe after adding sequence column, (only for those rows with a uniprot ID,) data_wi_unip_df: ")
+beautiful_print(data_wi_unip_df[["reaction", "ligandID", "Sequence"]])
+print("len(data_wi_unip_df): ", len(data_wi_unip_df))
+
+
+
+#====================================================================================================#
+# Separate data with found sequences and data w/out sequences mapped yet.
+
+print("\n\n"+"-"*90+"\n# Step 4.0.1 Get a dataframe of those data points with uniprot IDs but without a sequence found through searching UniProt DB.: ")
+# Get a dataframe of those data points with uniprot IDs but without a sequence found through searching UniProt DB.
+data_wi_unip_wo_seqs_df = data_wi_unip_df[data_wi_unip_df['Sequence'].isnull()]
+print("len(data_wi_unip_wo_seqs_df): ", len(data_wi_unip_wo_seqs_df), "# data points with uniprot IDs but without a sequence found") 
+# len(data_wi_unip_wo_seqs_df): 217
+
+# Get data_wi_seqs_df & data_wo_seqs_df.
+data_wo_seqs_df = pd.concat([data_wo_unip_df, data_wi_unip_wo_seqs_df], axis=0)
+data_wi_seqs_df = data_wi_unip_df[~data_wi_unip_df['Sequence'].isnull()]
+
+# After processing uniprot_ids, redefine data_wi_seqs_df and data_wo_seqs_df.
+print("After processing uniprot_ids, redefine data_wi_seqs_df and data_wo_seqs_df.")
+print("len(data_wi_seqs_df): ", len(data_wi_seqs_df)) # len(data_wi_seqs_df): 68316
+print("len(data_wo_seqs_df): ", len(data_wo_seqs_df)) # len(data_wo_seqs_df): 107420
+
+
+
+###################################################################################################################
+#            .g8""8q. `7MMF'   `7MF'MMP""MM""YMM `7MM"""Mq.`7MMF'   `7MF'MMP""MM""YMM                             #
+#          .dP'    `YM. MM       M  P'   MM   `7   MM   `MM. MM       M  P'   MM   `7     __,                     #
+#          dM'      `MM MM       M       MM        MM   ,M9  MM       M       MM         `7MM                     #
+#          MM        MM MM       M       MM        MMmmdM9   MM       M       MM           MM                     #
+#          MM.      ,MP MM       M       MM        MM        MM       M       MM           MM                     #
+#          `Mb.    ,dP' YM.     ,M       MM        MM        YM.     ,M       MM           MM                     #
+#            `"bmmd"'    `bmmmmd"'     .JMML.    .JMML.       `bmmmmd"'     .JMML.       .JMML.                   #
+###################################################################################################################
+# Output #1 Protein (with known UniProt ID) and Substrate (with known SMILES, most of them has Molfiles available)
+
+
+#====================================================================================================#
+# Add smiles to the dataframe using the dictionary.
+data_wi_seqs_df_0 = copy.deepcopy(data_wi_seqs_df)
+data_wi_seqs_df_0['smiles'] = data_wi_seqs_df_0["cmpd"].apply(lambda x: cmpd_smls_dict[x.lower()])
+data_wi_seqs_df_0 = data_wi_seqs_df_0[data_wi_seqs_df_0['smiles'].str.contains('None') == False]
+
+
+
+#====================================================================================================#
+# Checkpoint 4.1
+print("\n\n"+"-"*90+"\n# Step 4.1 Dataframe after adding smiles string through looking up compound-smiles dictionary, data_wi_seqs_df_0: ")
+data_wi_seqs_df_0.reset_index(inplace=True)
+data_wi_seqs_df_0.drop(columns = ["index", ], inplace = True)
+beautiful_print(data_wi_seqs_df_0[["smiles", "Sequence"]])
+print("len(data_wi_seqs_df_0): ", len(data_wi_seqs_df_0))
+
+
+
+
+#====================================================================================================#
+# Prepare Output #1
+print("\n\n" + "#"*100 + "\n" + "OUTPUT #1 Protein (with known UniProt ID) and Substrate (with known SMILES, most of them has Molfiles available)\n" + "#"*100 + "\n")
+
+def beautiful_print_(df): # DataFrame Printing.
+    # Print the dataset in a well-organized format.
+    with pd.option_context('display.max_rows'      , 20  , 
+                           'display.min_rows'      , 20  , 
+                           'display.max_columns'   , 8   , 
+                           #"display.max_colwidth" , None,
+                           "display.width"         , None,
+                           "expand_frame_repr"     , True,
+                           "max_seq_items"         , None,):  # more options can be specified
+        # Once the display.max_rows is exceeded, 
+        # the display.min_rows options determines 
+        # how many rows are shown in the truncated repr.
+        print(df)
+    return 
+
+
+data_wi_seqs_df_0['uniprot_id_tuple'] = data_wi_seqs_df_0['uniprot_id_list'].apply(tuple)
+data_wi_seqs_df_0_1 = copy.deepcopy(data_wi_seqs_df_0.drop_duplicates(subset=['smiles', 'uniprot_id_tuple'], keep = "first"))
+data_wi_seqs_df_0_1.drop(columns = ["uniprot_id_list", "uniprot_id", ], inplace = True)
+
+
+data_wi_seqs_df_0_1.reset_index(inplace=True)
+data_wi_seqs_df_0_1.drop(columns = ["index", ], inplace = True)
+beautiful_print_(data_wi_seqs_df_0_1)
+print("Number of pairs of identified Protein Structures & Substrate SMILES, len(data_wi_seqs_df_0_1): ", len(data_wi_seqs_df_0_1))
+
+data_wi_seqs_df_0_1.to_csv(output_folder / ("BRENDA_" + data_name + "_substrate" + output_1_suffix))
+data_wi_seqs_df_0_1.to_pickle(output_folder / ("BRENDA_" + data_name + "_substrate" + output_1_suffix.replace(".csv", ".p")))
+
+
+
+
+###################################################################################################################
+#            .g8""8q. `7MMF'   `7MF'MMP""MM""YMM `7MM"""Mq.`7MMF'   `7MF'MMP""MM""YMM                             #
+#          .dP'    `YM. MM       M  P'   MM   `7   MM   `MM. MM       M  P'   MM   `7                             #
+#          dM'      `MM MM       M       MM        MM   ,M9  MM       M       MM          pd*"*b.                 #
+#          MM        MM MM       M       MM        MMmmdM9   MM       M       MM         (O)   j8                 #
+#          MM.      ,MP MM       M       MM        MM        MM       M       MM             ,;j9                 #
+#          `Mb.    ,dP' YM.     ,M       MM        MM        YM.     ,M       MM          ,-='                    #
+#            `"bmmd"'    `bmmmmd"'     .JMML.    .JMML.       `bmmmmd"'     .JMML.       Ammmmmmm                 #
+###################################################################################################################
+# Output #2 Protein (with known UniProt ID) and Substrate (with known SMILES, most of them has Molfiles available)
+
+data_wi_seqs_df_1 = copy.deepcopy(data_wi_seqs_df_0)
+data_wi_seqs_df_1 = copy.deepcopy(data_wi_seqs_df_1.explode('reaction'))
+"""
+When you use the explode function on a DataFrame column that contains empty lists, 
+pandas will replace the empty lists with None.
+"""
+
+
+# Drop a few useless columns
+data_wi_seqs_df_1.drop(columns = ["uniprot_id_list", "uniprot_id", ], inplace = True)
+data_wi_seqs_df_1.dropna(subset=['reaction'], inplace = True)
+
+
+#====================================================================================================#
+# Checkpoint 4.2
+print("\n\n"+"-"*90+"\n# Step 4.2 Dataframe after explode reaction, data_wi_seqs_df_1: ")
+data_wi_seqs_df_1.reset_index(inplace=True)
+data_wi_seqs_df_1.drop(columns = ["index", ], inplace = True)
+beautiful_print(data_wi_seqs_df_1[["reaction", "uniprot_id_tuple"]])
+print("len(data_wi_seqs_df_1): ", len(data_wi_seqs_df_1))
+
+
+
+#====================================================================================================#
+# Checkpoint 4.3
+data_wi_seqs_df_1_1 = copy.deepcopy(data_wi_seqs_df_1.drop_duplicates(subset = ['reaction', 'uniprot_id_tuple'], keep = "first"))
+
+print("\n\n"+"-"*90+"\n# Step 4.3 Dataframe after getting unique pairs of `reaction` & `uniprot_id_tuple`, data_wi_seqs_df_1_1: ")
+data_wi_seqs_df_1_1.reset_index(inplace=True)
+data_wi_seqs_df_1_1.drop(columns = ["index", ], inplace = True)
+beautiful_print(data_wi_seqs_df_1_1)
+print("Number of pairs of identified Protein Structures & Reaction Strings, len(data_wi_seqs_df_1_1): ", len(data_wi_seqs_df_1_1))
+
+
+
+
+#====================================================================================================#
+# 
+rctn_list = data_wi_seqs_df_1_1["reaction"].tolist()
+
+rctt_list = []
+prod_list = []
+identify_bool_list = []
+
+for idx, rctn in enumerate(rctn_list):
+    rctt = rctn.split(" = ")[0].split(" + ")
+    prod = rctn.split(" = ")[1].split(" + ")
+
+    all_cmpd_of_rctn = rctt + prod
+    all_smiles_found_bool = True
+    for cp in all_cmpd_of_rctn: 
+        if cp.lower() not in cmpd_smls_dict.keys():
+            all_smiles_found_bool = False
+            break
+    
+    rctt_list.append(rctt)
+    prod_list.append(prod)
+    identify_bool_list.append(all_smiles_found_bool)
+
+
+data_wi_seqs_df_1_1["reactants"]       = rctt_list
+data_wi_seqs_df_1_1["products" ]       = prod_list
+data_wi_seqs_df_1_1["all_identified"]  = identify_bool_list
+
+
+#====================================================================================================#
+# Checkpoint 4.4
+
+
+print("\n\n"+"-"*90+"\n# Step 4.4 Dataframe after parsing the reaction string: ")
+data_wi_seqs_df_1_1.reset_index(inplace=True)
+data_wi_seqs_df_1_1.drop(columns = ["index", ], inplace = True)
+beautiful_print(data_wi_seqs_df_1_1)
+print("Number of pairs of identified Protein Structures & Reaction Strings, len(data_wi_seqs_df_1_1): ", len(data_wi_seqs_df_1_1))
 
 
 
 
 
+#====================================================================================================#
+# Prepare Output #1
+print("\n\n" + "#"*100 + "\n" + "OUTPUT #2 Protein (with known UniProt ID) and Reaction (with known SMILES)\n" + "#"*100 + "\n")
+data_wi_seqs_df_1_1.to_csv(output_folder / ("BRENDA_" + data_name + "_reaction" + output_1_suffix))
+data_wi_seqs_df_1_1.to_pickle(output_folder / ("BRENDA_" + data_name + "_reaction" + output_1_suffix.replace(".csv", ".p")))
 
 
 
 
+#====================================================================================================#
+# Checkpoint 4.5
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print("\n\n"+"-"*90+"\n# Step 4.5 Dataframe with all compounds identified: ")
+data_wi_seqs_df_1_1 = data_wi_seqs_df_1_1[data_wi_seqs_df_1_1['all_identified'] == True]
+data_wi_seqs_df_1_1.reset_index(inplace=True)
+data_wi_seqs_df_1_1.drop(columns = ["index", ], inplace = True)
+beautiful_print(data_wi_seqs_df_1_1)
+print("Number of pairs of identified Protein Structures & Reaction Strings, len(data_wi_seqs_df_1_1): ", len(data_wi_seqs_df_1_1))
 
 
 
