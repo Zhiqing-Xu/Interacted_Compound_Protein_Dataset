@@ -114,6 +114,7 @@ client = Client(wsdl)
 
 
 
+
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$#
 #                    `7MMF'`7MN.   `7MF'`7MM"""Mq. `7MMF'   `7MF'MMP""MM""YMM  .M"""bgd                                                                #
 #                      MM    MMN.    M    MM   `MM.  MM       M  P'   MM   `7 ,MI    "Y                                                                #
@@ -267,6 +268,7 @@ print("len(raw_df_0): ", len(raw_df_0))
 
 
 
+
 ################################################################################################################### 
 #                   `7MM"""YMM  `YMM'   `MP'`7MM"""Mq.   db     `7MN.   `7MF'`7MM"""Yb.                           #
 #                     MM    `7    VMb.  ,P    MM   `MM. ;MM:      MMN.    M    MM    `Yb.                         #
@@ -375,6 +377,7 @@ Z03_CompoundName_LigandID_SMILES.rename(columns = {"cmpd"     : "CMPD"          
                                         inplace = True)
 
 Z03_CompoundName_LigandID_SMILES.to_csv(output_folder / "Z03_CompoundName_LigandID_SMILES.csv", sep=';', index = False)
+
 
 
 

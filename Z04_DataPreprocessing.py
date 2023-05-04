@@ -115,6 +115,8 @@ client = Client(wsdl)
 
 
 
+
+
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$#
 #                    `7MMF'`7MN.   `7MF'`7MM"""Mq. `7MMF'   `7MF'MMP""MM""YMM  .M"""bgd                                                                #
 #                      MM    MMN.    M    MM   `MM.  MM       M  P'   MM   `7 ,MI    "Y                                                                #
@@ -352,6 +354,8 @@ raw_df_0 = copy.deepcopy(raw_df_0_extended)
 
 
 
+
+
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$# 
 #                `7MMF'   `7MF'`7MN.   `7MF'`7MMF'`7MM"""Mq. `7MM"""Mq.    .g8""8q.   MMP""MM""YMM     `7MMF'`7MM"""Yb.                                #
 #    __,           MM       M    MMN.    M    MM    MM   `MM.  MM   `MM. .dP'    `YM. P'   MM   `7       MM    MM    `Yb.                              #
@@ -484,6 +488,8 @@ data_wo_unip_df.drop(columns = ["index", ], inplace = True)
 print("\n\n"+"-"*90+"\n# Step 1.2 Dataset without Uniprot IDs: data_wo_unip_df: ")
 beautiful_print(data_wo_unip_df)
 print("len(data_wo_unip_df): ", len(data_wo_unip_df))
+
+
 
 
 
@@ -703,6 +709,8 @@ print("\n\n"+"-"*90+"\nDone getting the uniprotID -> sequence dict,  final_unip_
 
 
 
+
+
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$# 
 #   pd""b.             .g8"""bgd   .g8""8q.   `7MMM.     ,MMF'`7MM"""Mq.   .g8""8q.   `7MMF'   `7MF'`7MN.   `7MF'`7MM"""Yb.                            #
 #  (O)  `8b          .dP'     `M .dP'    `YM.   MMMb    dPMM    MM   `MM..dP'    `YM.   MM       M    MMN.    M    MM    `Yb.                          #
@@ -892,6 +900,8 @@ print("\n\n"+"-"*90+"\nDone getting the {Compound Name -> SMILES} dict,  cmpd_sm
 print("Number of different compounds in the set: ", len(uniq_cmpd_list))
 print("Number of compounds with smiles found:    ", len(cmpd_smls_dict) - missing_cmpd_list_len)
 print("Number of compounds with no smiles found: ", missing_cmpd_list_len)
+
+
 
 
 

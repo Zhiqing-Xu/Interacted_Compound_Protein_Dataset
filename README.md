@@ -48,7 +48,7 @@ This repository contains a data processing pipeline for obtaining a `Interacted 
 
 ## Z03_Data_BRENDA_LigandID_Compound.py
 - Based on the query results, get a dictionary of `compound names` -> `ligand ID` (currently ~22,000 records)
-    - Most (~90%) of the compounds in the reaction strings are covered. 
+    - Only (~35%) of the compounds in the reaction strings are covered. 
 - Get a list of unidentified compound names from the reaction strings (which covers all compounds we are interested)
 
 
