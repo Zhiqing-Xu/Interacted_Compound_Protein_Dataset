@@ -1,4 +1,4 @@
-# Interacted_Compound_Protein_Dataset
+# Interacted Compound Protein Dataset
 
 This repository contains a data processing pipeline for obtaining a `Interacted Compound Protein Dataset` based on kinetic parameters datasets retrieved from BRENDA database. The final processed dataset contains ~40,000 datapoints with compound structures, protein structures, reaction information (including SMILES representations of reactants and products). BRENDA has some anti-scraping and users cannot access all the data conveniently (for example, CANNOT get ligand ID from ligand name). 
 
