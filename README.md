@@ -34,14 +34,15 @@ This repository contains a data processing pipeline for obtaining a `Interacted 
     - Currently UniProt ID -> AlphaFold predicted PDB file (single file)
     - Can also do UniProt ID -> PDB ID's (mutliple PDB ID's) -> PDB files (multiple)
         - Problem: Need to decide which PDB file to use.
+    - All PDB files are zipped and uploaded, download and run the unzip.py will get all the PDB files in a folder.
 
 ## Z02_Download_All_Molfiles.py (~8 hours)
 - BRENDA has some anti-scraping to prevent users from downloading using computer program.
 - Download all ~260,000 Molfiles on all the pages of https://www.brenda-enzymes.org/ligand.php?brenda_ligand_id={}
 - Results are all saved to Z02_All_Ligands_Molfiles
+- All MOL files are zipped and uploaded, download and run the unzip.py will get all the MOL files in a folder.
 
-
-## Z02_Scrape_All_Ligand_Name.py (In Progress, TAKES AT LEAST 100+ hours)
+## Z02_Scrape_All_Ligand_Name.py (TAKES AT LEAST 100+ hours)
 - BRENDA has some anti-scraping to prevent users from frequently request the ligand webpages.
 - Scrape compound names and synonyms on all the pages of https://www.brenda-enzymes.org/ligand.php?brenda_ligand_id={}
 - Results will be saved to Z02_All_Ligands_Names
@@ -50,11 +51,12 @@ This repository contains a data processing pipeline for obtaining a `Interacted 
 - Based on the query results, get a dictionary of `compound names` -> `ligand ID` (currently ~22,000 records)
     - Only (~35%) of the compounds in the reaction strings are covered. 
 - Get a list of unidentified compound names from the reaction strings (which covers all compounds we are interested)
+- Update: Now, we got a dictionary of `compound names` -> `ligand ID` (currently ~110,000 records)
+    - 95% of the compounds in the reaction strings are covered. 
 
 
 ## Z04_Data_BRENDA_LigandID_Compound.py
-- Obtain a dataset with help of all previous steps.
-
+- Obtain a dataset with pairs of interacted protein and reaction.
 
 
 ## Z05_.py (In Progress)
