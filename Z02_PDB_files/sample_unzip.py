@@ -49,7 +49,7 @@ import zipfile
 def join_files(filename, number_of_files):
     data = []
     for i in range(number_of_files):
-        part = filename + '.zip.' + str(i+1).zfill(3) # adjust zfill according to your naming scheme
+        part = filename + '.zip.' + str(i+1).zfill(3) 
         with open(part, 'rb') as file:
             data.append(file.read())
     return data
@@ -63,7 +63,7 @@ def unzip_file(filename):
     with zipfile.ZipFile(filename, 'r') as zip_ref:
         zip_ref.extractall()
 
-# adjust these to your needs
+
 filename = 'alphafold_zips/alphafold'
 number_of_files = 30 # adjust this to the number of parts
 
