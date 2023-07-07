@@ -111,11 +111,11 @@ class DownloadFile(object):
         t_get_url = threading.Thread(target = self.get_url)
         t_list.append(t_get_url)
 
-        for i in range(5):
+        for _ in range(5):
             t_get_content = threading.Thread(target = self.get_content)
             t_list.append(t_get_content)
 
-        for i in range(5):
+        for _ in range(5):
             t_save = threading.Thread(target = self.save)
             t_list.append(t_save)
 

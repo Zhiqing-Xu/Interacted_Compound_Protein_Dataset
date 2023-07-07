@@ -1,7 +1,9 @@
 List of files larger than 100MB 
+C:\Users\cesiu\Desktop\github_all\Git_Interacted_Compound_Protein_Dataset\.git\objects\35\25c5278430492bf1f4b1b79de69d5489bd8c95 
 C:\Users\cesiu\Desktop\github_all\Git_Interacted_Compound_Protein_Dataset\CMPD_RXN_tools\MNXScrapSavings\CPD01_nme_smiles_MNXid_dict.p 
 C:\Users\cesiu\Desktop\github_all\Git_Interacted_Compound_Protein_Dataset\CMPD_RXN_tools\MNXScrapSavings\CPD01_smiles_MNXid_nme_dict.p 
-C:\Users\cesiu\Desktop\github_all\Git_Interacted_Compound_Protein_Dataset\CMPD_RXN_tools\MNXScrapSavings\raw_data\chem_prop.tsv 
+C:\Users\cesiu\Desktop\github_all\Git_Interacted_Compound_Protein_Dataset\CMPD_RXN_tools\MNXScrapSavings\raw_data\version_2020\chem_prop.tsv 
+C:\Users\cesiu\Desktop\github_all\Git_Interacted_Compound_Protein_Dataset\CMPD_RXN_tools\MNXScrapSavings\raw_data\version_2022\chem_prop.tsv 
 C:\Users\cesiu\Desktop\github_all\Git_Interacted_Compound_Protein_Dataset\Z00_BRENDA_Kinetics_Raw\uniprot_annotation_3_001_200.tsv 
 C:\Users\cesiu\Desktop\github_all\Git_Interacted_Compound_Protein_Dataset\Z00_BRENDA_Kinetics_Raw\uniprot_annotation_3_201_300.tsv 
 C:\Users\cesiu\Desktop\github_all\Git_Interacted_Compound_Protein_Dataset\Z00_BRENDA_Kinetics_Raw\uniprot_annotation_3_301_400.tsv 

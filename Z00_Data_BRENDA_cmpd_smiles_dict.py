@@ -110,8 +110,7 @@ data_folder         = Path("Z00_BRENDA_Kinetics_Raw/" + data_folder_name)
 data_file           = data_file_name
 
 
-output_folder       = Path("Z04_DataPreprocessing_Savings/")
-output_file         = output_file_name
+
 
 
 #====================================================================================================#
@@ -388,13 +387,11 @@ with open(data_folder / "cmpd_smls_pubchem.csv", 'w') as f:
 
 print("Done!")
 
+# print out all variables throughout the script.
 
-
-
-
-
-
-
+for name in dir():
+    if not name.startswith('_'):
+        exec("print('{} = {}'.format(name, eval(name)))")
 
 
 
