@@ -1,4 +1,4 @@
-@echo off
+@echo on
 git pull
 git add *
 git commit -m "u"

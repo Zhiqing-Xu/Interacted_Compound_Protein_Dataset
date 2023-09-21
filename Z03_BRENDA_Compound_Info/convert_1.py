@@ -2,7 +2,7 @@ import csv
 import os
 
 input_file = 'Z03B_CompoundName_LigandID_SMILES.csv'
-temp_file = 'Z03B_CompoundName_LigandID_SMILES_1.csv'
+temp_file  = 'Z03B_CompoundName_LigandID_SMILES_1.csv'
 
 with open(input_file, 'r', newline='', encoding='utf-8') as infile:
     reader = csv.reader(infile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL, skipinitialspace=True)
