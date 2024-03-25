@@ -40,6 +40,8 @@ if __name__ == "__main__":
             print("Problems with navigating to the workbook dir.")
 #--------------------------------------------------#
 
+
+
 ###################################################################################################################
 ###################################################################################################################
 # Imports
@@ -131,12 +133,12 @@ def isfloat(num):
 import hashlib
 from zeep import Client
 
-wsdl = "https://www.brenda-enzymes.org/soap/brenda_zeep.wsdl"
-password = hashlib.sha256("2-Oxoglutarate".encode("utf-8")).hexdigest()
-client = Client(wsdl)
 
 
-
+wsdl           = "https://www.brenda-enzymes.org/soap/brenda_zeep.wsdl"
+brenda_account = "palladium.xu@gmail.com"
+password       = hashlib.sha256("2-Oxoglutarate".encode("utf-8")).hexdigest()
+client         = Client(wsdl)
 
 
 
@@ -154,11 +156,11 @@ client = Client(wsdl)
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$# 
 
 # Input Arguments
-data_folder_name    = ["Ki_BRENDA"             , "KM_BRENDA"        , "kcat_BRENDA"        , "kcat_KM_BRENDA"        ][3]
-data_file_name      = ["brenda_Ki_raw_old.csv" , "brenda_KM_raw.csv", "brenda_kcat_raw.csv", "brenda_kcat_KM_raw.csv"][3]
-output_file_name    = ["Ki_BRENDA.csv"         , "KM_BRENDA.csv"    , "kcat_BRENDA.csv"    , "kcat_KM_BRENDA.csv"    ][3]
-data_name           = ["Ki"                    , "Km"               , "kcat"               , "kcat_KM"               ][3]
-data_name_0         = ["max_Ki"                , "max_Km"           , "max_kcat"           , "max_kcat_KM"           ][3]
+data_folder_name    = ["Ki_BRENDA"             , "KM_BRENDA"        , "kcat_BRENDA"        , "kcat_KM_BRENDA"        ][2]
+data_file_name      = ["brenda_Ki_raw_old.csv" , "brenda_KM_raw.csv", "brenda_kcat_raw.csv", "brenda_kcat_KM_raw.csv"][2]
+output_file_name    = ["Ki_BRENDA.csv"         , "KM_BRENDA.csv"    , "kcat_BRENDA.csv"    , "kcat_KM_BRENDA.csv"    ][2]
+data_name           = ["Ki"                    , "Km"               , "kcat"               , "kcat_KM"               ][2]
+data_name_0         = ["max_Ki"                , "max_Km"           , "max_kcat"           , "max_kcat_KM"           ][2]
 
 data_folder         = Path("Z00_BRENDA_Kinetics_Raw/" + data_folder_name)
 data_file           = data_file_name
@@ -350,14 +352,16 @@ Z01_Query_Result_df = Z01_Query_Result_df.rename( columns = {"substrate": "cmpd"
 # Unresponded_Query = [('Pyrococcus abyssi', 'S-adenosyl-L-methionine', '2.1.1.B114')]
 subs, orgm, ecnm = Unresponded_Query[0]
 
-parameters = ("palladium.xu@gmail.com"              , 
-              password                              , 
-              "ecNumber*"           + ecnm          , 
-              "substrate*"          + subs          , 
-              "reactionPartners*"                   , 
-              "organism*"           + orgm          , 
-              "ligandStructureId*"                  ,
+parameters = (
+              brenda_account                , 
+              password                      , 
+              "ecNumber*"           + ecnm  , 
+              "substrate*"          + subs  , 
+              "reactionPartners*"           , 
+              "organism*"           + orgm  , 
+              "ligandStructureId*"          ,
               )
+
 try:
     query_result = client.service.getSubstrate(*parameters)
 except:
@@ -1271,10 +1275,14 @@ print("IN PROGRESS.")
 
 
 
+
+
 #====================================================================================================#
 # Prepare Output #2 : # 4.8
 #====================================================================================================#
 print("\n\n\n\n" + "#"*100 + "\n" + "OUTPUT #2 Step 4.8 Protein (with known UniProt ID) and Reaction (with known SMILES)\n" + "#"*100 + "\n")
+
+
 
 
 #====================================================================================================#
@@ -1445,7 +1453,7 @@ print("\n\n\n\n" + "#"*100 + "\n" + "OUTPUT #3 Step 5.5 _wi_seqs_avg_val_screene
 # 5. Leave out any records if multiple records for the same sequence and compound exist and variance is big.
 
 data_wi_seqs_avg_df_screened.reset_index(inplace = True)
-data_wi_seqs_avg_df_screened = data_wi_seqs_avg_df_screened[["smiles", "Sequence", data_name, "organism"]]
+data_wi_seqs_avg_df_screened = data_wi_seqs_avg_df_screened[["smiles", "Sequence", data_name, "organism", "EC", ]]
 data_wi_seqs_avg_df_screened.rename(columns = {'smiles': "CMPD_SMILES", "Sequence": "SEQ"}, inplace = True)
 beautiful_print(data_wi_seqs_avg_df_screened)
 print("Number of values in CORE dataset, len(data_wi_seqs_avg_df_screened): ", len(data_wi_seqs_avg_df_screened))
@@ -2111,7 +2119,7 @@ data_assgn_seqs_df_screened.drop(columns = [data_name, ], inplace = True)
 
 data_assgn_seqs_df_screened = data_assgn_seqs_df_screened.dropna(subset=['val_avg'])
 data_assgn_seqs_df_screened.rename(columns = {'val_avg': data_name}, inplace = True)
-data_assgn_seqs_df_screened.drop_duplicates(subset=["smiles", "Sequence"], keep='first', inplace = True)
+data_assgn_seqs_df_screened.drop_duplicates(subset = ["smiles", "Sequence"], keep='first', inplace = True)
 
 # Change column names for output.
 data_assgn_seqs_df_screened = data_assgn_seqs_df_screened[["smiles", "Sequence", data_name, "organism"]]
@@ -2119,7 +2127,7 @@ data_assgn_seqs_df_screened.rename(columns = {'smiles': "CMPD_SMILES", "Sequence
 
 # Add back all wi_unip data.
 data_all_seqs_df_screened = pd.concat([data_assgn_seqs_df_screened, data_wi_seqs_avg_df_organism_screened], axis=0)
-data_all_seqs_df_screened.drop_duplicates(subset=['CMPD_SMILES', 'SEQ', ], keep='first', inplace = True)
+data_all_seqs_df_screened.drop_duplicates(subset = ['CMPD_SMILES', 'SEQ', ], keep='first', inplace = True)
 
 # Get rid of `index` columns.
 data_all_seqs_df_screened.reset_index(inplace = True)

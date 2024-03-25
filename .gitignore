@@ -1,13 +1,10 @@
 # Large Files
 Z00_BRENDA_Kinetics_Raw/RHEA_reactions_and_sequences.tsv 
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
-
 # LF
-
 Z02_All_Ligands_Molfiles/Z02_All_Ligands_Molfiles
 Z02_All_Ligands_Molfiles/Z02_All_Ligands_Molfiles_1_50000
 Z02_All_Ligands_Molfiles/Z02_All_Ligands_Molfiles_50001_100000
@@ -15,8 +12,6 @@ Z02_All_Ligands_Molfiles/Z02_All_Ligands_Molfiles_100001_150000
 Z02_All_Ligands_Molfiles/Z02_All_Ligands_Molfiles_150001_200000
 Z02_All_Ligands_Molfiles/Z02_All_Ligands_Molfiles_200001_250000
 Z02_All_Ligands_Molfiles/Z02_All_Ligands_Molfiles_250001_290000
-
-
 Z00_BRENDA_Kinetics_Raw/uniprot_annotation_3_001_200.tsv 
 Z00_BRENDA_Kinetics_Raw/uniprot_annotation_3_201_300.tsv 
 Z00_BRENDA_Kinetics_Raw/uniprot_annotation_3_301_400.tsv 
@@ -25,14 +20,12 @@ Z00_BRENDA_Kinetics_Raw/uniprot_annotation_3_601_800.tsv
 Z00_BRENDA_Kinetics_Raw/uniprot_annotation_3_801_inf.tsv 
 Z00_BRENDA_Kinetics_Raw/uniprot_annotation_4.tsv 
 Z00_BRENDA_Kinetics_Raw/uniprot_annotation_5.tsv 
-
 Z02_PDB_files/alphafold
 Z02_PDB_files/alphafold_zips/alphafold.zip
-
-
 CMPD_RXN_tools/MNXScrapSavings/CPD01_nme_smiles_MNXid_dict.p 
 CMPD_RXN_tools/MNXScrapSavings/CPD01_smiles_MNXid_nme_dict.p 
 CMPD_RXN_tools/MNXScrapSavings/raw_data/version_2020/chem_prop.tsv 
 CMPD_RXN_tools/MNXScrapSavings/raw_data/version_2022/chem_prop.tsv 
-
-
+.git/objects/35/25c5278430492bf1f4b1b79de69d5489bd8c95 
+.git/objects/6e/721dc60412412ddc1e09f1e9cd6f1da193596c 
+Z02_PDB_files/alphafold_zips/alphafold.zip 
